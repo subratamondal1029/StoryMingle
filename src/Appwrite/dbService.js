@@ -27,7 +27,6 @@ class DbService {
         }
       );
     } catch (error) {
-      console.log("Db service :: createPost :: error", error);
       throw error;
     }
   }
@@ -46,7 +45,6 @@ class DbService {
         }
       );
     } catch (error) {
-      console.log("Dbservice :: updatePost :: error", error);
       throw error;
     }
   }
@@ -60,7 +58,6 @@ class DbService {
       );
       return true
     } catch (error) {
-      console.log("Dbservice :: deletePost :: error", error);
       throw error;
       return false
     }
@@ -74,7 +71,6 @@ class DbService {
           slug,
         );
       } catch (error) {
-        console.log("Dbservice :: getPost :: error", error);
         throw error;
         return false
       }
@@ -84,14 +80,14 @@ class DbService {
     try {
         return await this.databases.listDocuments(conf.databaseId, conf.collectionId, queries)
     } catch (error) {
-        console.log("Dbservice :: getPosts :: error", error);
+      throw error
     }
   }
 
 
     // file upload services
 
-    async uploadFile({file}){
+    async uploadFile(file){
       try {
      return await this.storage.createFile(conf.backetId, ID.unique(), file)
       } catch (error) {
@@ -112,7 +108,7 @@ class DbService {
       }
     }
 
-    filePreview(fileId){
+    getFilePreview(fileId){
       try {
         return this.storage.getFilePreview(conf.backetId, fileId)
       } catch (error) {
@@ -123,3 +119,5 @@ class DbService {
 }
 
 const dbService = new DbService();
+
+export default dbService

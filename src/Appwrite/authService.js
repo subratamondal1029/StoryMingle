@@ -21,11 +21,10 @@ class authService {
       );
 
       if (userAcoount) {
-        // call login mathod
         this.login({email, password})
-      } else return userAcoount;
+        return userAcoount;
+      } else return null;
     } catch (error) {
-        console.log("auth service :: register :: error", error);
       throw error;
     }
   }
@@ -34,7 +33,6 @@ class authService {
     try {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
-        console.log("auth service :: login :: error", error);
       throw error;
     }
   }
@@ -43,8 +41,7 @@ class authService {
     try {
        return await this.account.get()
     } catch (error) {
-        console.log("auth service :: getCurrentUser :: error", error);
-        throw error;
+       return null
     }
 
     return null;
@@ -54,7 +51,6 @@ class authService {
     try {
         await this.account.deleteSessions()
     } catch (error) {
-        console.log("auth service :: logout :: error", error);
         throw error
     }
   }
